@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { requestLogin, saveToken } from "../../utils/Auth";
 import { ToastContainer, toast } from "react-toastify";
-const Login = () => {
+const Login = ({ onLogin }) => {
   const [form, setForm] = useState({});
   const [status, setStatus] = useState("idle");
   const handleChangeValue = (e) => {
@@ -20,6 +20,7 @@ const Login = () => {
       return toast.error("Email hoặc mật khẩu không chính xác");
     }
     saveToken(response);
+    onLogin();
   };
   return (
     <div className="mx-auto w-50 py-3" s>

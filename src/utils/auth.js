@@ -24,8 +24,16 @@ export const saveToken = (token) => {
 
 export const getToken = () => {
   try {
-    return JSON.parse(localStorage.getItem("authToken"));
+    const token = JSON.parse(localStorage.getItem("authToken"));
+    if (token.access_token && token.refresh_token) {
+      return token;
+    }
+    throw new Error("Token invalid");
   } catch {
     return false;
   }
+};
+
+export const removeToken = () => {
+  localStorage.removeItem("authToken");
 };
