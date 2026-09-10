@@ -17,3 +17,15 @@ export const requestLogin = async (data) => {
     return false;
   }
 };
+
+export const saveToken = (token) => {
+  localStorage.setItem("authToken", JSON.stringify(token));
+};
+
+export const getToken = () => {
+  try {
+    return JSON.parse(localStorage.getItem("authToken"));
+  } catch {
+    return false;
+  }
+};
