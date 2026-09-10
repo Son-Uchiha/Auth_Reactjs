@@ -18,8 +18,6 @@ const Login = () => {
     setStatus("idle");
     if (!response) {
       return toast.error("Email hoặc mật khẩu không chính xác");
-    } else {
-      console.log("Thất bại");
     }
   };
   return (
