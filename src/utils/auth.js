@@ -48,6 +48,12 @@ export const getUser = async () => {
     });
     if (response.ok) {
       return response.json();
+    } else {
+      const newToken = await requestRefreshToken();
+      if (newToken) {
+        saveToken(newToken);
+        return getUser();
+      }
     }
   }
   return false;
@@ -55,4 +61,21 @@ export const getUser = async () => {
 
 export const logout = () => {
   removeToken();
+};
+
+export const requestRefreshToken = async () => {
+  const { refresh_token: refreshToken } = getToken();
+  if (refreshToken) {
+    const response = await fetch(`${import.meta.env.VITE_SERVER_API}/auth/refresh-token`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ refreshToken }),
+    });
+    if (response.ok) {
+      return response.json();
+    }
+  }
+  return false;
 };
