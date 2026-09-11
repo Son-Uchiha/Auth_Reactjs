@@ -1,16 +1,14 @@
-import { removeToken } from "../../utils/Auth";
+import Logout from "../Auth/Logout";
+import Profile from "./Profile";
 
 const Dashboard = ({ onSuccess }) => {
-  const handleLogout = () => {
-    removeToken();
-    onSuccess();
-  };
   return (
     <div className="container py-3">
       <h2 className="text-center">Chào mừng bạn đã quay trở lại</h2>
-      <button className="btn btn-danger d-block mx-auto" onClick={handleLogout}>
-        Đăng Xuất
-      </button>
+      <Profile onSuccess={onSuccess}></Profile>
+      <Logout onSuccess={onSuccess}>
+        <button className="btn btn-danger d-block mx-auto">Đăng Xuất</button>
+      </Logout>
     </div>
   );
 };

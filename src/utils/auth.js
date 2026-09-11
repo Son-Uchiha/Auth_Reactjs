@@ -37,3 +37,22 @@ export const getToken = () => {
 export const removeToken = () => {
   localStorage.removeItem("authToken");
 };
+
+export const getUser = async () => {
+  const { access_token: accessToken } = getToken();
+  if (accessToken) {
+    const response = await fetch(`${import.meta.env.VITE_SERVER_API}/auth/profile`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    if (response.ok) {
+      return response.json();
+    }
+  }
+  return false;
+};
+
+export const logout = () => {
+  removeToken();
+};
